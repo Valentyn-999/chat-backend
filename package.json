@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "nodemon --inspect dist/app.js",
+    "start-dev": "nodemon --inspect dist/App.js",
     "watch-dev": "tsc -w",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/App.js"
   },
   "dependencies": {
     "@types/express": "^4.17.13",
