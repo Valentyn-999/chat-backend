@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server);
 app.get('/', (req, res) => {
-    res.send("hello success is on your way! This is ws server!!!");
+    res.send("hello success is on your way! This       1232112 is ws server!!!");
 });
 io.on("connection", (socket) => {
     console.log("user has been connected");
