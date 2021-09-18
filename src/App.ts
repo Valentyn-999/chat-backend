@@ -7,7 +7,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.get('/', (req, res) => {
-    res.send("hello success is on your way! This is ws   123  server!!!")
+    res.send("hello success is on your way! This is ws server!!!")
 })
 
 io.on("connection", (socket: any) => {
