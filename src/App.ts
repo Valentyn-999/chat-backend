@@ -6,7 +6,7 @@ const app = express();
 const server = createServer(app);
 const socket = new Server(server, {
     cors: {
-        origin: "http://localhost:3000/",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"]
     }
 });
@@ -19,7 +19,7 @@ socket.on("connection", (connection) => {
     console.log("user has been connected")
 });
 
-const PORT = process.env.REACT_APP_PORT || 3009
+const PORT = process.env.PORT || 3009
 
 server.listen(PORT, () => {
     console.log(`listening on ${PORT}`)
