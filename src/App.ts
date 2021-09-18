@@ -4,17 +4,17 @@ import { Server } from "socket.io";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const socket = new Server(server);
 
 app.get('/', (req, res) => {
-    res.send("hello success is on your way! This       1232112 is ws server!!!")
+    res.send("hello success is on your way! This is ws server")
 })
 
-io.on("connection", (socket: any) => {
+socket.on("connection", (connection) => {
     console.log("user has been connected")
 });
 
-const PORT = process.env.PORT || 3009
+const PORT = process.env.PORT || 3007
 
 server.listen(PORT, () => {
     console.log("listening on *:3009")
