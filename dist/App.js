@@ -15,7 +15,8 @@ app.get('/', (req, res) => {
 io.on("connection", (socket) => {
     console.log("user has been connected");
 });
-server.listen(3009, () => {
+const PORT = process.env.PORT || 3009;
+server.listen(PORT, () => {
     console.log("listening on *:3009");
 });
 //# sourceMappingURL=App.js.map
