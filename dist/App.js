@@ -23,7 +23,11 @@ app.get('/', (req, res) => {
 });
 socket.on("connection", (socketChannel) => {
     socketChannel.on("client-message-sent", (message) => {
-        console.log(`here is your message ${message}`);
+        const messageItem = {
+            message: message, id: String(new Date().valueOf()), user: { id: "qzxcxsdqwe11fdfas", name: "Valentyn" }
+        };
+        messages.push(messageItem);
+        socket.emit("new-message-sent", messageItem);
     });
     socketChannel.emit("init-messages-published", messages);
     console.log("user has been connected!!!!");
