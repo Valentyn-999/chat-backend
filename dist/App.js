@@ -14,19 +14,32 @@ const socket = new socket_io_1.Server(server, {
         methods: ["GET", "POST"]
     }
 });
+app.get('/', (req, res) => {
+    res.send("hi, this is back for ws chat");
+});
 const messages = [
     { message: "Hello Anton", id: "qqq111www222eee333", user: { id: "qzxcxsdqwe11fdfas", name: "Valentyn" } },
     { message: "Hello Valentyn", id: "1fewdffqd31dewdf33", user: { id: "g53g2fd13fwrr1dws", name: "Anton" } }
 ];
-app.get('/', (req, res) => {
-    res.send("hi, this is back for ws chat");
-});
+const usersState = new Map();
 socket.on("connection", (socketChannel) => {
+    usersState.set(socketChannel, { id: String(new Date().valueOf()), name: "anonym" });
+    socket.on("disconnect", () => {
+        usersState.delete(socketChannel);
+    });
+    socketChannel.on("client-name-sent", (userName) => {
+        if (typeof userName !== "string")
+            return;
+        const user = usersState.get(socketChannel);
+        user.name = userName;
+    });
     socketChannel.on("client-message-sent", (message) => {
         if (typeof message !== "string")
             return;
+        const user = usersState.get(socketChannel);
         const messageItem = {
-            message: message, id: String(new Date().valueOf()), user: { id: "qzxcxsdqwe11fdfas", name: "Valentyn" }
+            message: message, id: String(new Date().valueOf()),
+            user: { id: user.id, name: user.name }
         };
         messages.push(messageItem);
         socket.emit("new-message-sent", messageItem);
