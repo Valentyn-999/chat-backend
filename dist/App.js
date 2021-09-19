@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 });
 socket.on("connection", (socketChannel) => {
     socketChannel.on("client-message-sent", (message) => {
+        if (typeof message !== "string")
+            return;
         const messageItem = {
             message: message, id: String(new Date().valueOf()), user: { id: "qzxcxsdqwe11fdfas", name: "Valentyn" }
         };
