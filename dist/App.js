@@ -14,13 +14,21 @@ const socket = new socket_io_1.Server(server, {
         methods: ["GET", "POST"]
     }
 });
+const messages = [
+    { message: "Hello Anton", id: "qqq111www222eee333", user: { id: "qzxcxsdqwe11fdfas", name: "Valentyn" } },
+    { message: "Hello Valentyn", id: "1fewdffqd31dewdf33", user: { id: "g53g2fd13fwrr1dws", name: "Anton" } }
+];
 app.get('/', (req, res) => {
-    res.send("hello success is on your way! This is ws server 123!");
+    res.send("hi, this is back for ws chat");
 });
-socket.on("connection", (connection) => {
-    console.log("user has been connected");
+socket.on("connection", (socketChannel) => {
+    socketChannel.on("client-message-sent", (message) => {
+        console.log(`here is your message ${message}`);
+    });
+    socketChannel.emit("init-messages-published", messages);
+    console.log("user has been connected!!!!");
 });
-const PORT = process.env.PORT || 3009;
+const PORT = process.env.PORT || 3007;
 server.listen(PORT, () => {
     console.log(`listening on ${PORT}`);
 });
